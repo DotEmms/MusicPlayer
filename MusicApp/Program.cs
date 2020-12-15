@@ -19,9 +19,6 @@ namespace MusicApp
             Application.Run(new Form1());
             [STAThread]
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
             Console.WriteLine("******** Musify ********");//toon titel muziekspeler
             string input = Console.ReadLine(); //lees user input (titel)
             string path = "C:/Music/" + input + ".mp3";//aangegeven pad voor het bestand
