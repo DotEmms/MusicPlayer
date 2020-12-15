@@ -7,13 +7,21 @@ namespace MusicPlayer
 {
     class Music
     {
-        static void MusicPlayer()
+        WindowsMediaPlayer player;
+        public Music()
         {
-            //commentaar
+            player = new WindowsMediaPlayer();
+            player.settings.volume = 20;
+        } 
+        void MusicPlayer()
+        {
+            
         }
-
-
-        public static string GetMusicFile()
+        //void CreatePlaylist()
+        //{
+        //    WMPLib.IWMPPlaylist playlist = wmp.playlistCollection.newPlaylist("myplaylist");
+        //}
+        public string GetMusicFile()
         {
             Console.Write("Geef de titel van het liedje in: ");
             string input = Console.ReadLine(); //lees user input (titel)
@@ -21,27 +29,26 @@ namespace MusicPlayer
             Console.WriteLine($"Now playing {input}");
             return path;
         }
-        public static void PlayMusic(string file)
+        public void PlayMusic(string file)
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
             player.URL = file;
         }
 
-        public static void PlayCommercial(string file)
+        public  void PlayCommercial(string file)
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
             player.URL = file;
         }
-        public static void PauseMusic(string file)
+        public void PauseMusic(string file)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public static void StopMusic(string file)
+        public void StopMusic()
         {
-            throw new NotImplementedException();
+            
         }
-        public static void Volume()
+       
+        public void Volume()
         {
             Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen");//volume regelen
             string volume = Console.ReadLine();
@@ -66,25 +73,25 @@ namespace MusicPlayer
             }
         }
 
-        public static void VolumeUp()
+        public void VolumeUp()
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
+          
             if (player.settings.volume < 90)
             {
                 player.settings.volume = player.settings.volume + 5;
             }
         }
 
-        public static void VolumeDown()
+        public void VolumeDown()
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
+            
             if (player.settings.volume > 1)
             {
                 player.settings.volume = player.settings.volume - (player.settings.volume / 2);
             }
         }
 
-        public static void Error()
+        public  void Error()
         {
             Console.WriteLine("Geen geldige invoer!");
         }

@@ -6,12 +6,13 @@ namespace MusicPlayer
     {
         static void Main(string[] args)
         {
+            Music player = new Music();
             Console.WriteLine("******** Musify ********");//toon titel muziekspeler
             string pathCommercial = "C:/Music/Commercial.mp3";
-            Music.PlayCommercial(pathCommercial);//reclame
-            Music.PlayMusic(Music.GetMusicFile());//muziek
+            player.PlayCommercial(pathCommercial);//reclame
+            player.PlayMusic(player.GetMusicFile());//muziek
             Console.ReadLine();
-            Music.Volume();
+            player.Volume();//volume aanpassen
         }
     }
 }
