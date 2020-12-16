@@ -66,52 +66,17 @@ namespace MusicPlayer
                 switch (controlMusic)
                 {
                     case "stop":
-                        {
-                            player.controls.stop();
-                            break;
-                        }
                     case "Stop":
                         {
                             player.controls.stop();
                             break;
                         }
+                   
                     case "pause":
-                        {
-                            if (player.playState == WMPPlayState.wmppsPaused)
-                            {
-                                player.controls.play();
-                            }
-                            else
-                            {
-                                player.controls.pause();
-                            }
-                            break;
-                        }
-                    case "pauze":
-                        {
-                            if (player.playState == WMPPlayState.wmppsPaused)
-                            {
-                                player.controls.play();
-                            }
-                            else
-                            {
-                                player.controls.pause();
-                            }
-                            break;
-                        }
                     case "Pause":
-                        {
-                            if (player.playState == WMPPlayState.wmppsPaused)
-                            {
-                                player.controls.play();
-                            }
-                            else
-                            {
-                                player.controls.pause();
-                            }
-                            break;
-                        }
+                    case "pauze":
                     case "Pauze":
+                    
                         {
                             if (player.playState == WMPPlayState.wmppsPaused)
                             {
@@ -123,7 +88,9 @@ namespace MusicPlayer
                             }
                             break;
                         }
+                  
                     case "Play":
+                    case "play":
                         {
                             if (player.playState == WMPPlayState.wmppsStopped)
                             {
@@ -139,11 +106,7 @@ namespace MusicPlayer
                             }
                             break;
                         }
-                    case "play":
-                        {
-                            player.controls.play();
-                            break;
-                        }
+                    
                     default:
                         {
                             Error();
