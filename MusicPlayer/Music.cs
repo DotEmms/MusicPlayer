@@ -31,9 +31,31 @@ namespace MusicPlayer
         }
         public void PlayMusic(string file)
         {
+            //player.URL = file;
+            player.PlayStateChange +=
+                new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(Player_PlayStateChange);
+            player.MediaError +=
+                new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
             player.URL = file;
+            player.controls.play();
+        }
+        private void Player_PlayStateChange(int NewState)
+        {
+            if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                this.Close();
+            }
         }
 
+        private void Close()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Player_MediaError(object pMediaObject)
+        {
+            Console.WriteLine("Cannot play media file.");
+        }
         public  void PlayCommercial(string file)
         {
             player.URL = file;
@@ -51,10 +73,11 @@ namespace MusicPlayer
         public void Volume()
         {
             Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen");//volume regelen
-            string volume = Console.ReadLine();
-            while (volume != null)
+            string volumeUpDown = Console.ReadLine();
+            while (player.settings.volume != 0)
             {
-                switch (volume)//switch om volume te verhogen of verlagen
+                volumeUpDown = Console.ReadLine();
+                switch (volumeUpDown)//switch om volume te verhogen of verlagen
                 {
                     case "up":
                         {

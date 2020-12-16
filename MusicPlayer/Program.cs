@@ -11,8 +11,8 @@ namespace MusicPlayer
             string pathCommercial = "C:/Music/Commercial.mp3";
             player.PlayCommercial(pathCommercial);//reclame
             player.PlayMusic(player.GetMusicFile());//muziek
-            Console.ReadLine();
             player.Volume();//volume aanpassen
+            Console.ReadLine();
         }
     }
 }
