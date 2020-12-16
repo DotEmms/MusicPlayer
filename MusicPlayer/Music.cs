@@ -43,38 +43,122 @@ namespace MusicPlayer
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                this.Close();
+                player.controls.stop();
             }
         }
 
-        private void Close()
-        {
-            throw new NotImplementedException();
-        }
 
         private void Player_MediaError(object pMediaObject)
         {
             Console.WriteLine("Cannot play media file.");
+            player.controls.stop();
         }
         public  void PlayCommercial(string file)
         {
             player.URL = file;
         }
-        public void PauseMusic(string file)
+        public void ControlMusic()
         {
-            
+            Console.WriteLine("Geef aan met 'stop' om de muziek te stoppen, 'pause/pauze' om te pauzeren en 'play' om verder af te spelen:");
+            string controlMusic = Console.ReadLine();
+            while (player.playState != WMPPlayState.wmppsStopped)
+            {
+                switch (controlMusic)
+                {
+                    case "stop":
+                        {
+                            player.controls.stop();
+                            break;
+                        }
+                    case "Stop":
+                        {
+                            player.controls.stop();
+                            break;
+                        }
+                    case "pause":
+                        {
+                            if (player.playState == WMPPlayState.wmppsPaused)
+                            {
+                                player.controls.play();
+                            }
+                            else
+                            {
+                                player.controls.pause();
+                            }
+                            break;
+                        }
+                    case "pauze":
+                        {
+                            if (player.playState == WMPPlayState.wmppsPaused)
+                            {
+                                player.controls.play();
+                            }
+                            else
+                            {
+                                player.controls.pause();
+                            }
+                            break;
+                        }
+                    case "Pause":
+                        {
+                            if (player.playState == WMPPlayState.wmppsPaused)
+                            {
+                                player.controls.play();
+                            }
+                            else
+                            {
+                                player.controls.pause();
+                            }
+                            break;
+                        }
+                    case "Pauze":
+                        {
+                            if (player.playState == WMPPlayState.wmppsPaused)
+                            {
+                                player.controls.play();
+                            }
+                            else
+                            {
+                                player.controls.pause();
+                            }
+                            break;
+                        }
+                    case "Play":
+                        {
+                            if (player.playState == WMPPlayState.wmppsStopped)
+                            {
+                                player.controls.play();
+                            }
+                            else if(player.playState == WMPPlayState.wmppsPaused)
+                            {
+                                player.controls.play();
+                            }
+                            else
+                            {
+                                Error();
+                            }
+                            break;
+                        }
+                    case "play":
+                        {
+                            player.controls.play();
+                            break;
+                        }
+                    default:
+                        {
+                            Error();
+                            break;
+                        }
+                }
+            }
         }
 
-        public void StopMusic()
-        {
-            
-        }
-       
+               
         public void Volume()
         {
-            Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen");//volume regelen
+            Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen, 'stop' om het volume menu te verlaten.");//volume regelen
             string volumeUpDown = Console.ReadLine();
-            while (player.settings.volume != 0)
+            while (player.settings.volume != 10)
             {
                 volumeUpDown = Console.ReadLine();
                 switch (volumeUpDown)//switch om volume te verhogen of verlagen
@@ -87,6 +171,11 @@ namespace MusicPlayer
                     case "down":
                         {
                             VolumeDown();
+                            break;
+                        }
+                    case "stop":
+                        {
+                            player.settings.volume = 10;
                             break;
                         }
                     default:

@@ -12,6 +12,7 @@ namespace MusicPlayer
             player.PlayCommercial(pathCommercial);//reclame
             player.PlayMusic(player.GetMusicFile());//muziek
             player.Volume();//volume aanpassen
+            player.ControlMusic();
             Console.ReadLine();
         }
     }
