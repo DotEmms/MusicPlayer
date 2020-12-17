@@ -9,30 +9,7 @@ namespace MusicApp
 {
     class MusicPlayer2
     {
-        //static void MusicPlayer()
-        //{
-
-        //}
-
-        //public static void PlayMusic(string file)
-        //{
-        //    WindowsMediaPlayer player = new WindowsMediaPlayer();
-        //    _WMPOCXEvents_PlayStateChangeEventHandler player_PlayStateChange = null;
-        //    player.PlayStateChange += player_PlayStateChange;
-        //    player.controls.stop();
-        //    player.URL = file;
-        //    player.controls.play();
-        //}
-        //public static void PlayCommercial(string file)
-        //{
-        //    WindowsMediaPlayer player = new WindowsMediaPlayer();
-        //    _WMPOCXEvents_PlayStateChangeEventHandler player_PlayStateChange = null;
-        //    player.PlayStateChange += player_PlayStateChange;
-        //    player.URL = file;
-        //    player.controls.play();
-        //}
-
-
+        
         public static void PlayMusic(string path)
         {
             WindowsMediaPlayer Player = new WindowsMediaPlayer();

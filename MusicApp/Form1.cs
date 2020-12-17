@@ -15,17 +15,38 @@ namespace MusicApp
     {
         public Form1()
         {
-            InitializeComponent();
-        }
+            WMPLib.WindowsMediaPlayer Player;
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+             void PlayFile(String url)
+            {
+                Player = new WMPLib.WindowsMediaPlayer();
+                Player.PlayStateChange +=
+                    new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(Player_PlayStateChange);
+                Player.MediaError +=
+                    new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+                Player.URL = url;
+                Player.controls.play();
+            }
 
-        }
+            void Form1_Load(object sender, System.EventArgs e)
+            {
+                // TODO  Insert a valid path in the line below.
+                PlayFile(@"c:/music/Commercial.mp3");
+            }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+            void Player_PlayStateChange(int NewState)
+            {
+                if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
+                {
+                    this.Close();
+                }
+            }
 
+            void Player_MediaError(object pMediaObject)
+            {
+                MessageBox.Show("Cannot play media file.");
+                this.Close();
+            }
         }
     }
 }

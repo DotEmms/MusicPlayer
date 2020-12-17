@@ -7,47 +7,119 @@ namespace MusicPlayer
 {
     class Music
     {
-        static void MusicPlayer()
+        WindowsMediaPlayer player;
+        public Music()
         {
-            //commentaar
+            player = new WindowsMediaPlayer();
+            player.settings.volume = 20;
+        } 
+        void MusicPlayer()
+        {
+            
         }
-
-
-        public static string GetMusicFile()
+        //void CreatePlaylist()
+        //{
+        //    WMPLib.IWMPPlaylist playlist = wmp.playlistCollection.newPlaylist("myplaylist");
+        //}
+        public string GetMusicFile()
         {
-            Console.Write("Geef de titel van het liedje in: ");
+            Console.Write("Type the title of the song: ");
             string input = Console.ReadLine(); //lees user input (titel)
             string path = "C:/Music/" + input + ".mp3";//aangegeven pad voor het bestand
             Console.WriteLine($"Now playing {input}");
             return path;
         }
-        public static void PlayMusic(string file)
+        public void PlayMusic(string file)
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
+            //player.URL = file;
+            player.PlayStateChange +=
+                new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(Player_PlayStateChange);
+            player.MediaError +=
+                new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
             player.URL = file;
+            player.controls.play();
         }
-
-        public static void PlayCommercial(string file)
+        private void Player_PlayStateChange(int NewState)
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
-            player.URL = file;
-        }
-        public static void PauseMusic(string file)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void StopMusic(string file)
-        {
-            throw new NotImplementedException();
-        }
-        public static void Volume()
-        {
-            Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen");//volume regelen
-            string volume = Console.ReadLine();
-            while (volume != null)
+            if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                switch (volume)//switch om volume te verhogen of verlagen
+                player.controls.stop();
+            }
+        }
+
+
+        private void Player_MediaError(object pMediaObject)
+        {
+            Console.WriteLine("Cannot play media file.");
+            player.controls.stop();
+        }
+        public  void PlayCommercial(string file)
+        {
+            player.URL = file;
+        }
+        public void ControlMusic()
+        {
+            Console.WriteLine("Enter 'stop' to stop the song, 'pause/pauze' to pause the song and 'play' to commence:");
+            string controlMusic = Console.ReadLine();
+            while (player.playState != WMPPlayState.wmppsStopped)
+            {
+                switch (controlMusic.ToLower())
+                {
+                    case "stop":
+                        {
+                            player.controls.stop();
+                            break;
+                        }
+                   
+                    case "pause":
+                    case "pauze":
+                    
+                        {
+                            if (player.playState == WMPPlayState.wmppsPaused)
+                            {
+                                player.controls.play();
+                            }
+                            else if (player.playState == WMPPlayState.wmppsPlaying)
+                            {
+                                player.controls.pause();
+                            }
+                            break;
+                        }
+                    case "play":
+                        {
+                            if (player.playState == WMPPlayState.wmppsStopped)
+                            {
+                                player.controls.play();
+                            }
+                            else if(player.playState == WMPPlayState.wmppsPaused)
+                            {
+                                player.controls.play();
+                            }
+                            else
+                            {
+                                Error();
+                            }
+                            break;
+                        }
+                    
+                    default:
+                        {
+                            Error();
+                            break;
+                        }
+                }
+            }
+        }
+
+               
+        public void Volume()
+        {
+            Console.WriteLine("Enter 'up' or 'down' to alter the volume, 'stop' to close the volume menu.");//volume regelen => moet nog naar het Engels
+            string volumeUpDown = Console.ReadLine();
+            while (player.settings.volume != 15)
+            {
+                volumeUpDown = Console.ReadLine();
+                switch (volumeUpDown.ToLower())//switch om volume te verhogen of verlagen
                 {
                     case "up":
                         {
@@ -59,6 +131,11 @@ namespace MusicPlayer
                             VolumeDown();
                             break;
                         }
+                    case "stop":
+                        {
+                            player.settings.volume = 15;
+                            break;
+                        }
                     default:
                         Error();
                         break;
@@ -66,27 +143,27 @@ namespace MusicPlayer
             }
         }
 
-        public static void VolumeUp()
+        public void VolumeUp()
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
+          
             if (player.settings.volume < 90)
             {
                 player.settings.volume = player.settings.volume + 5;
             }
         }
 
-        public static void VolumeDown()
+        public void VolumeDown()
         {
-            WindowsMediaPlayer player = new WindowsMediaPlayer();
+            
             if (player.settings.volume > 1)
             {
                 player.settings.volume = player.settings.volume - (player.settings.volume / 2);
             }
         }
 
-        public static void Error()
+        public  void Error()
         {
-            Console.WriteLine("Geen geldige invoer!");
+            Console.WriteLine("No valid entry!");
         }
 
 
