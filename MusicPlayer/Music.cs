@@ -119,7 +119,7 @@ namespace MusicPlayer
                
         public void Volume()
         {
-            Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen, 'stop' om het volume menu te verlaten.");//volume regelen
+            Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen, 'stop' om het volume menu te verlaten.");//volume regelen => moet nog naar het Engels
             string volumeUpDown = Console.ReadLine();
             while (player.settings.volume != 10)
             {

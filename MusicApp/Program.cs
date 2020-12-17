@@ -22,7 +22,7 @@ namespace MusicApp
             Console.WriteLine("******** Musify ********");//toon titel muziekspeler
             string input = Console.ReadLine(); //lees user input (titel)
             string path = "C:/Music/" + input + ".mp3";//aangegeven pad voor het bestand
-            string pathCommercial = "C:/Music/Commercial.mp3";
+            //string pathCommercial = "C:/Music/Commercial.mp3";
             //MusicPlayer2.PlayCommercial(pathCommercial);//reclame
             MusicPlayer2.PlayMusic(path);//muziek
             Console.WriteLine($"Now playing {input}");//teruggave van de user keuze
