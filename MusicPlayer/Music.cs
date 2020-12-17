@@ -23,7 +23,7 @@ namespace MusicPlayer
         //}
         public string GetMusicFile()
         {
-            Console.Write("Geef de titel van het liedje in: ");
+            Console.Write("Type the title of the song: ");
             string input = Console.ReadLine(); //lees user input (titel)
             string path = "C:/Music/" + input + ".mp3";//aangegeven pad voor het bestand
             Console.WriteLine($"Now playing {input}");
@@ -59,37 +59,32 @@ namespace MusicPlayer
         }
         public void ControlMusic()
         {
-            Console.WriteLine("Geef aan met 'stop' om de muziek te stoppen, 'pause/pauze' om te pauzeren en 'play' om verder af te spelen:");
+            Console.WriteLine("Enter 'stop' to stop the song, 'pause/pauze' to pause the song and 'play' to commence:");
             string controlMusic = Console.ReadLine();
             while (player.playState != WMPPlayState.wmppsStopped)
             {
-                switch (controlMusic)
+                switch (controlMusic.ToLower())
                 {
                     case "stop":
-                    case "Stop":
                         {
                             player.controls.stop();
                             break;
                         }
                    
                     case "pause":
-                    case "Pause":
                     case "pauze":
-                    case "Pauze":
                     
                         {
                             if (player.playState == WMPPlayState.wmppsPaused)
                             {
                                 player.controls.play();
                             }
-                            else
+                            else if (player.playState == WMPPlayState.wmppsPlaying)
                             {
                                 player.controls.pause();
                             }
                             break;
                         }
-                  
-                    case "Play":
                     case "play":
                         {
                             if (player.playState == WMPPlayState.wmppsStopped)
@@ -119,12 +114,12 @@ namespace MusicPlayer
                
         public void Volume()
         {
-            Console.WriteLine("Geef aan met 'up' of 'down' of u uw volume wil verhogen of verlagen, 'stop' om het volume menu te verlaten.");//volume regelen => moet nog naar het Engels
+            Console.WriteLine("Enter 'up' or 'down' to alter the volume, 'stop' to close the volume menu.");//volume regelen => moet nog naar het Engels
             string volumeUpDown = Console.ReadLine();
-            while (player.settings.volume != 10)
+            while (player.settings.volume != 15)
             {
                 volumeUpDown = Console.ReadLine();
-                switch (volumeUpDown)//switch om volume te verhogen of verlagen
+                switch (volumeUpDown.ToLower())//switch om volume te verhogen of verlagen
                 {
                     case "up":
                         {
@@ -138,7 +133,7 @@ namespace MusicPlayer
                         }
                     case "stop":
                         {
-                            player.settings.volume = 10;
+                            player.settings.volume = 15;
                             break;
                         }
                     default:
@@ -168,7 +163,7 @@ namespace MusicPlayer
 
         public  void Error()
         {
-            Console.WriteLine("Geen geldige invoer!");
+            Console.WriteLine("No valid entry!");
         }
 
 

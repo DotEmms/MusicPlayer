@@ -31,7 +31,7 @@ namespace MusicApp
             void Form1_Load(object sender, System.EventArgs e)
             {
                 // TODO  Insert a valid path in the line below.
-                PlayFile(@"c:\myaudio.wma");
+                PlayFile(@"c:/music/Commercial.mp3");
             }
 
             void Player_PlayStateChange(int NewState)
